@@ -163,7 +163,7 @@
         .cby{background:var(--red);color:#fff;border:0;border-radius:10px;padding:9px 22px;font-family:'Tajawal',sans-serif;font-weight:700;font-size:12px;cursor:pointer}
         .cby:hover{filter:brightness(1.15)}
         .cbn{background:0;border:1px solid var(--border);color:var(--txt);border-radius:10px;padding:9px 22px;font-family:'Tajawal',sans-serif;font-weight:700;font-size:12px;cursor:pointer}
-        .toast{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px 20px;font-size:12px;z-index:40;animation:tI .3s ease-out;pointer-events:none;white-space:nowrap;max-width:90vw;box-shadow:0 4px 20px rgba(0,7,0,.4)}
+        .toast{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px 20px;font-size:12px;z-index:40;animation:tI .3s ease-out;pointer-events:none;white-space:nowrap;max-width:90vw;box-shadow:0 4px 20px rgba(0,0,0,.4)}
         @keyframes tI{from{opacity:0;transform:translateX(-50%) translateY(-12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
         .shake{animation:shk .15s ease-out}
         @keyframes shk{0%{transform:translate(0)}25%{transform:translate(-3px,2px)}50%{transform:translate(3px,-2px)}75%{transform:translate(-2px,1px)}100%{transform:translate(0)}}
@@ -180,7 +180,6 @@
 <div class="mbg" id="ad-modal"><div class="mbox"><h3 style="color:var(--gold)"><i class="fas fa-crown" style="margin-left:4px"></i> لوحة الأدمن</h3><p>أنشئ غرفة أو ادخل لغرفة موجودة</p><input class="mI" id="ad-room" type="text" placeholder="كود الغرفة" maxlength="20"><input class="mI" id="ad-pass" type="password" placeholder="باسوورد الأدمن" maxlength="30" style="direction:ltr"><button class="mB" style="background:linear-gradient(135deg,#b8860b,#daa520)" id="ad-go" onclick="doAdmin()">دخول</button><button class="mX" onclick="closeAD()">إلغاء</button><div class="mSt" id="ad-st"></div></div></div>
 <div class="cbg" id="cf-bg"><div class="cbox"><p id="cf-txt"></p><div class="cbs"><button class="cby" id="cf-y">نعم</button><button class="cbn" onclick="closeCf()">إلغاء</button></div></div></div>
 <div id="msg-ov"><div class="mh"><div class="mh-l"><span>الغرفة</span><span class="mpill" id="mpill">---</span><span class="ns ns-off" id="ns"><i class="fas fa-circle"></i> ---</span></div><div class="mh-btns"><button class="close-room-btn" id="closeRoomBtn" onclick="closeRoom()"><i class="fas fa-power-off"></i> اغلاق</button><button class="sb" onclick="closeMsg()"><i class="fas fa-chevron-down"></i></button></div></div><div class="ml" id="ml"><div class="emp">لا توجد رسائل</div></div><div class="mia"><textarea class="mi" id="minp" placeholder="اكتب رسالة..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendM()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,60)+'px'"></textarea><button class="ms" onclick="sendM()"><i class="fas fa-paper-plane"></i></button></div><div class="ap" id="apanel" style="display:none"><h4><i class="fas fa-users" style="margin-left:4px"></i> الضيوف</h4><div id="glist"></div><div class="ag"><input id="gn-in" type="text" placeholder="اسم الضيف" maxlength="15"><input id="gc-in" type="text" placeholder="كود الضيف" maxlength="15" style="direction:ltr"><button onclick="addG()">إضافة</button></div><button class="clr" onclick="confirmClr()"><i class="fas fa-trash" style="margin-left:3px"></i> مسح الرسائل</button></div></div>
-
 <script>
 var AK='muh@206582026',SD=15000;
 var NOTES=[261.63,293.66,329.63,392,440,523.25,587.33,659.25,783.99,880,1046.5,1174.66,1318.51,1567.98,1760],nI=0;
@@ -216,11 +215,10 @@ var cfCb=null;
 function showCf(t,cb){cfCb=cb;document.getElementById('cf-txt').textContent=t;document.getElementById('cf-bg').classList.add('on')}
 function closeCf(){document.getElementById('cf-bg').classList.remove('on');cfCb=null}
 document.getElementById('cf-y').addEventListener('click',function(){if(cfCb)cfCb();closeCf()});
-document.getElementById('cf-bg').addEventListener('click',function(e){if(e.target===e.currentTarget)closeCf()});
+document.getElementById('cf-bg#).addEventListener('click',function(e){if(e.target===e.currentTarget)closeCf()});
 document.getElementById('gc-modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeGC()});
 document.getElementById('ad-modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeAD()});
 
-/* ===== اللعبة ===== */
 var bEl=document.getElementById('board');
 function startGame(mode){
     initAudio();document.getElementById('start').classList.add('off');document.getElementById('game').style.display='flex';document.getElementById('gameover').classList.remove('on');
@@ -313,7 +311,6 @@ function sLB(l){localStorage.setItem('nb_lb',JSON.stringify(l))}
 function rLB(){var lb=gLB();var el=document.getElementById('lb');if(!lb.length){el.innerHTML='';return}el.innerHTML=lb.sort(function(a,b){return b.s-a.s}).slice(0,8).map(function(e,i){return'<div class="lb-row"><span class="rnk">'+(i+1)+'. '+esc(e.n)+'</span><span class="sc">'+e.s+'</span></div>'}).join('')}
 function submitName(){var v=document.getElementById('gon').value.trim();if(!v)return;if(v===AK){document.getElementById('gameover').classList.remove('on');openAD();return}var lb=gLB();lb.push({n:v,s:G.s});sLB(lb);rLB();document.getElementById('gon').value='';document.getElementById('gob').textContent='تم الحفظ! افضل: '+G.best}
 
-/* ===== نظام الغرفة ===== */
 var adTapCount=0,adTapTimer=null;
 document.getElementById('goVer').addEventListener('click',function(){adTapCount++;clearTimeout(adTapTimer);adTapTimer=setTimeout(function(){adTapCount=0},2000);if(adTapCount>=5){adTapCount=0;openAD()}});
 function openAD(){document.getElementById('ad-modal').classList.add('on');document.getElementById('ad-room').value=localStorage.getItem('nb_rc')||'';document.getElementById('ad-pass').value='';document.getElementById('ad-st').innerHTML='';document.getElementById('ad-go').disabled=false;setTimeout(function(){document.getElementById('ad-room').focus()},300)}
@@ -370,13 +367,13 @@ function renderG(){loadG();var el=document.getElementById('glist');var ks=Object
 
 function loadGM(){if(!RN)return;RN.get('msgs').map().once(function(d){if(!d||!d.id||d.text===null||d.text===undefined)return;var tx=d.text;if(d.enc){var dd=dec(d.text,AK);if(dd)tx=dd}if(!MM.msgs.find(function(m){return m.id===d.id})){MM.msgs.push({id:d.id,who:d.who||'?',text:tx,ts:d.ts||0,admin:!!d.admin,system:!!d.system})}});setTimeout(function(){MM.msgs.sort(function(a,b){return a.ts-b.ts});svM();if(document.getElementById('msg-ov').classList.contains('on'))renderM()},1500)}
 function listenG(){if(!RN||GL)return;GL=true;RN.get('msgs').map().on(function(d){if(!d||d.id===undefined)return;if(d.text===null||d.text===undefined){var i=MM.msgs.findIndex(function(m){return m.id===d.id});if(i>-1){MM.msgs.splice(i,1);svM();if(document.getElementById('msg-ov').classList.contains('on'))renderM()}return}var tx=d.text;if(d.enc){var dd=dec(d.text,AK);if(dd)tx=dd}if(!MM.msgs.find(function(m){return m.id===d.id})){MM.msgs.push({id:d.id,who:d.who||'?',text:tx,ts:d.ts||0,admin:!!d.admin,system:!!d.system});MM.msgs.sort(function(a,b){return a.ts-b.ts});svM();if(document.getElementById('msg-ov').classList.contains('on'))renderM();playNote(392,.2,'sine',.04)}})}
-function delM9id){MM.msgs=MM.msgs.filter(function(m){return m.id!==id});svM();renderM();if(RN)RN.get('msgs').get(id).put(null)}
+function delM(id){MM.msgs=MM.msgs.filter(function(m){return m.id!==id});svM();renderM();if(RN)RN.get('msgs').get(id).put(null)}
 function deleteGuestMsgs(){if(MM.mode!=='admin'||!RN)return;var toDel=MM.msgs.filter(function(m){return!m.admin&&!m.system});toDel.forEach(function(m){RN.get('msgs').get(m.id).put(null)});MM.msgs=MM.msgs.filter(function(m){return m.admin||m.system});svM();renderM()}
 function confirmClr(){showCf('مسح كل الرسائل؟',function(){if(RN){MM.msgs.forEach(function(m){RN.get('msgs').get(m.id).put(null)})}MM.msgs=[];MM.timers.forEach(function(t){clearInterval(t)});MM.timers=[];svM();renderM();toast('تم المسح','var(--red)')})}
 function closeRoom(){showCf('اغلاق الغرفة؟',function(){if(RN){MM.msgs.forEach(function(m){RN.get('msgs').get(m.id).put(null)});loadG();Object.keys(MM.g).forEach(function(c){RN.get('guests').get(c).put(null);RN.get('gv_'+fnvHash(c)).put(null)});RN.get('ah').put(null);RN.put(null)}MM.msgs=[];MM.timers.forEach(function(t){clearInterval(t)});MM.timers=[];svM();RC='';RN=null;GL=false;localStorage.setItem('nb_rc','');closeMsg();toast('تم اغلاق الغرفة','var(--red)')})}
 
 function openMsg(){document.getElementById('msg-ov').classList.add('on');var p=document.getElementById('mpill');var crb=document.getElementById('closeRoomBtn');if(MM.mode==='admin'){p.textContent='أدمن';p.className='mpill mp-a';document.getElementById('apanel').style.display='block';crb.style.display='flex';renderG()}else{p.textContent='ضيف';p.className='mpill mp-g';document.getElementById('apanel').style.display='none';crb.style.display='none'}ldM();renderM()}
-function closeMsg(){document.getElementById('msg-ov').classList.remove('on');if(MM.mode==='admin'){deleteGuestMsgs()}if(MM.mode==='guest'){MM.timers.forEach(function(t){clearInterval(t)});MM.timers=[];MM.msgs.forEach(function(m){MM.vw.add(m.id)});localStorage.setItem('nb_v',JSON.stringify(Array.from(MM.vw)))}MM.mode=null;document.getElementById('gameover').classList.add('on')}
+function closeMsg(){document.getElementById('msg-ov@ov').classList.remove('on');if(MM.mode==='admin'){deleteGuestMsgs()}if(MM.mode==='guest'){MM.timers.forEach(function(t){clearInterval(t)});MM.timers=[];MM.msgs.forEach(function(m){MM.vw.add(m.id)});localStorage.setItem('nb_v',JSON.stringify(Array.from(MM.vw)))}MM.mode=null;document.getElementById('gameover').classList.add('on')}
 function ldM(){try{MM.msgs=JSON.parse(localStorage.getItem('nb_m_'+RC))||[]}catch(e){MM.msgs=[]}try{MM.vw=new Set(JSON.parse(localStorage.getItem('nb_v')))}catch(e){MM.vw=new Set()}}
 function svM(){localStorage.setItem('nb_m_'+RC,JSON.stringify(MM.msgs))}
 function sendM(){var inp=document.getElementById('minp');var t=inp.value.trim();if(!t)return;var msg={id:Date.now().toString(36)+Math.random().toString(36).substr(2,5),who:MM.nm,text:t,ts:Date.now(),admin:MM.mode==='admin'};MM.msgs.push(msg);svM();inp.value='';inp.style.height='auto';renderM();hitSound();if(RN){RN.get('msgs').get(msg.id).put({id:msg.id,who:msg.who,text:enc(t,AK),ts:msg.ts,admin:msg.admin,enc:true})}}
